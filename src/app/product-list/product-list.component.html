@@ -1,0 +1,63 @@
+<h2>product-list works!</h2>
+<!---->
+<div *ngFor="let product of products">
+  <h3>
+    {{ product.name }}
+  </h3>
+</div>
+<hr>
+<h2>Products whith details tooltip</h2>
+<hr>
+<div *ngFor="let product of products">
+
+  <h3>
+    <a [title]="product.name + ' details'">
+      {{ product.name }}
+    </a>
+  </h3>
+
+</div>
+<hr>
+<h2>Products</h2>
+<hr>
+<div *ngFor="let product of products">
+
+  <h3>
+    <a [title]="product.name + ' details'">
+      {{ product.name }}
+    </a>
+  </h3>
+
+  <p *ngIf="product.description">
+    Description: {{ product.description }}
+  </p>
+
+</div>
+
+<!-- Agregamos un botón que permita, a los usuarios, compartir un producto con sus amigos-->
+
+<h2>Products</h2>
+
+<div *ngFor="let product of products; index as productId">
+
+  <h3>
+    <a [title]="product.name + ' details'" [routerLink]="['/products', productId]">
+      {{ product.name }}
+    </a>
+  </h3>
+  <!-- el *ngIf valida que exista un valor en la variable
+    y la pinta si la contiene, si no, la omite-->
+  <p *ngIf="product.description">
+    Description: {{ product.description }}
+  </p>
+  <img [src]="'/assets/mazda3.jpg'" width="250" height="150" [title]="'Auto: '+product.name "><br>
+  <button (click)="share()">
+    Share
+  </button>
+  <!-- Agregamos un nuevo componente a nuestra -->
+  <!-- para agregar un componente, debemos utilizar la etiqueta app
+         seguidal nombre del componente separado por guien medio '-' -->
+  <app-product-alerts [product]="product" (notify)="onNotify()">
+
+  </app-product-alerts>
+</div>
